@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="content">
+        <img id="close" class="exit" src="cross.png" alt="" />
+        <div class="header"></div>
+        <div class="add" id="add">
+          <div id="counter" class="counter">0</div>
+        </div>
+        <div class="buttons">
+          <div id="decrement" class="button">
+            <img src="minus.png" alt="" />
+          </div>
+          <div id="reset" class="button">
+            <img src="undo.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const counterElement = document.getElementById("counter");
+      const incrementButton = document.getElementById("add");
+      const decrementButton = document.getElementById("decrement");
+      const resetButton = document.getElementById("reset");
+      const closeButton = document.getElementById("close");
+
+      let counter = 0;
+
+      incrementButton.addEventListener("click", () => {
+        counter++;
+        counterElement.textContent = counter;
+      });
+
+      decrementButton.addEventListener("click", () => {
+        if (counter > 0) {
+          counter--;
+        }
+        counterElement.textContent = counter;
+      });
+
+      resetButton.addEventListener("click", () => {
+        counter = 0;
+        counterElement.textContent = counter;
+      });
+
+      closeButton.addEventListener("click", () => {
+        const window = remote.getCurrentWindow();
+        window.close(); // Menutup jendela saat header ditekan
+      });
+    </script>
+  </body>
+</html>

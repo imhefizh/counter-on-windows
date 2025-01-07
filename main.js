@@ -1,13 +1,13 @@
 const path = require("path");
-require("electron-reload")(path.join(__dirname, "."), {
-  electron: path.join(__dirname, "node_modules", ".bin", "electron"),
-});
-
+// require("electron-reload")(path.join(__dirname, "."), {
+//   electron: require(`${__dirname}/node_modules/electron`),
+// });
 const { app, BrowserWindow } = require("electron");
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 80,
+    width: 210,
     height: 130,
+    icon: __dirname + "./counter.ico", // Path ke ikon
     resizable: false,
     frame: false,
     alwaysOnTop: true,

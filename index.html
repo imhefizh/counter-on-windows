@@ -9,12 +9,20 @@
   <body>
     <div class="app">
       <div class="content">
-        <img id="close" class="exit" src="cross.png" alt="" />
+        <div class="exit" id="close">
+          <img src="cross.png" alt="" />
+        </div>
         <div class="header"></div>
-        <div class="add" id="add">
-          <div id="counter" class="counter">0</div>
+        <div class="body">
+          <div class="add" id="add">
+            <div id="counter" class="counter">0</div>
+          </div>
+          <div class="timer">
+            <div class="timertext" id="timertext">00:00</div>
+          </div>
         </div>
         <div class="buttons">
+          <div class="start" id="start">Start Timer</div>
           <div id="decrement" class="button">
             <img src="minus.png" alt="" />
           </div>
@@ -27,12 +35,19 @@
 
     <script>
       const counterElement = document.getElementById("counter");
+      const startElement = document.getElementById("start");
+      const timerElement = document.getElementById("timertext");
       const incrementButton = document.getElementById("add");
       const decrementButton = document.getElementById("decrement");
       const resetButton = document.getElementById("reset");
       const closeButton = document.getElementById("close");
+      const startButton = document.getElementById("start");
 
       let counter = 0;
+
+      let start = false;
+      let timerCounter = 0;
+      let timer = null;
 
       incrementButton.addEventListener("click", () => {
         counter++;
@@ -49,11 +64,42 @@
       resetButton.addEventListener("click", () => {
         counter = 0;
         counterElement.textContent = counter;
+        timerCounter = 0; // Reset juga timer counter
+        let m = Math.floor(timerCounter / 60);
+        let s = timerCounter % 60;
+        timerElement.textContent = `${m < 10 ? "0" + m : m}:${
+          s < 10 ? "0" + s : s
+        }`;
+        clearInterval(timer); // Pastikan timer dihentikan
+        start = false;
+      });
+
+      startButton.addEventListener("click", () => {
+        if (!start) {
+          start = true;
+        } else {
+          start = false;
+        }
+        startElement.textContent = start ? "Stop Timer" : "Start Timer";
+        if (start) {
+          // Jika start bernilai true, mulai timer
+          timer = setInterval(() => {
+            timerCounter++;
+            let m = Math.floor(timerCounter / 60);
+            let s = timerCounter % 60;
+            timerElement.textContent = `${m < 10 ? "0" + m : m}:${
+              s < 10 ? "0" + s : s
+            }`;
+          }, 1000);
+        } else {
+          // Jika start bernilai false, hentikan timer
+          clearInterval(timer);
+        }
       });
 
       closeButton.addEventListener("click", () => {
         const window = remote.getCurrentWindow();
-        window.close(); // Menutup jendela saat header ditekan
+        window.close();
       });
     </script>
   </body>

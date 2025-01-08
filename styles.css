@@ -27,6 +27,13 @@ body {
   height: 25%;
   app-region: drag;
   background: linear-gradient(to top, #000000, #1a1a1a);
+  color: white;
+  font-size: x-small;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
 }
 
 .add {
@@ -96,6 +103,7 @@ body {
   top: 22%;
   opacity: 20%;
   cursor: pointer;
+  user-select: none;
 }
 
 .exit:hover {

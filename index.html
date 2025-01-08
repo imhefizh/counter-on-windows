@@ -12,7 +12,7 @@
         <div class="exit" id="close">
           <img src="cross.png" alt="" />
         </div>
-        <div class="header"></div>
+        <div class="header">Counter and Timer</div>
         <div class="body">
           <div class="add" id="add">
             <div id="counter" class="counter">0</div>
@@ -61,9 +61,25 @@
         counterElement.textContent = counter;
       });
 
+      let shift = false;
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Shift") {
+          shift = true;
+        }
+      });
+
+      document.addEventListener("keyup", function (event) {
+        if (event.key === "Shift") {
+          shift = false;
+        }
+      });
+
       resetButton.addEventListener("click", () => {
-        counter = 0;
-        counterElement.textContent = counter;
+        if (shift) {
+          counter = 0;
+          counterElement.textContent = counter;
+        }
+
         timerCounter = 0; // Reset juga timer counter
         let m = Math.floor(timerCounter / 60);
         let s = timerCounter % 60;
@@ -72,6 +88,7 @@
         }`;
         clearInterval(timer); // Pastikan timer dihentikan
         start = false;
+        startElement.textContent = start ? "Stop Timer" : "Start Timer";
       });
 
       startButton.addEventListener("click", () => {
